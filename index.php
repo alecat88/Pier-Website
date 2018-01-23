@@ -139,7 +139,7 @@ $img = getRandomFromArray($imgList);
 	#menu span{
 		cursor: pointer;
 	}
-	#menu span:hover, a.list {
+	#menu span:hover, a.list:hover {
 		opacity: 0.5;
 	}
 </style>
