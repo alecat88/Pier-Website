@@ -45,13 +45,28 @@ $img = getRandomFromArray($imgList);
 <html>
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
+<title>PierPaolo Moro</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 	@font-face {
     font-family: Trade Gothic LT Std Extended;
     src: url("assets/TradeGothicLTStd-BoldExt.otf") format("opentype");
+		font-weight: bold;
 }
+	@font-face {
+    font-family: Trade Gothic LT Std Extended;
+    /*src: url("assets/TradeGothicLTStd-BoldExt.otf") format("opentype");*/
+		src: url("assets/TradeGothicLTStd-Light.otf") format("opentype");
+		font-weight: lighter;
+}
+	@font-face {
+    font-family: Trade Gothic LT Std Extended;
+    /*src: url("assets/TradeGothicLTStd-BoldExt.otf") format("opentype");*/
+		src: url("assets/TradeGothicLTStd.otf") format("opentype");
+		font-weight: normal;
+}
+	
+	
 	body{
 	font-family: Trade Gothic LT Std Extended!important;
     line-height: 14px;
@@ -126,7 +141,7 @@ $img = getRandomFromArray($imgList);
 	#container2.click{
 				cursor: pointer;
 	}
-	#contactBox{
+	#contactBox, #infoBox{
 		width: 100%;
     height: 100%;
     display: flex;
@@ -173,17 +188,23 @@ $img = getRandomFromArray($imgList);
 	$('#portfolio').on('click',function(){
 		$('#portfolioBox').show();
 		$('#contactBox').hide();
+		$('#infoBox').hide();
 		$('#container2').removeClass('white');
 		$('#container2').addClass('click');
 	});
 		
-	$('#works').on('click',function(){
-			
+	$('#info').on('click',function(){
+		$('#portfolioBox').hide();
+		$('#contactBox').hide();
+		$('#infoBox').show();
+		$('#container2').addClass('white');
+		$('#container2').removeClass('click');	
 	});
 		
 	$('#contact').on('click',function(){
 		$('#portfolioBox').hide();
 		$('#contactBox').show();
+		$('#infoBox').hide();
 		$('#container2').addClass('white');
 		$('#container2').removeClass('click');
 	});
@@ -217,13 +238,13 @@ $img = getRandomFromArray($imgList);
 	<div id="menu">
 	<img src="assets/nome.png"><br>
 	<!--h1>PierPaoloMoro</h1-->
-	<span id="portfolio">portfolio</span> \ <span id="works">works</span> \ <span id="contact">contact</span>
+	<span id="portfolio">portfolio</span> \ <span id="info">info</span> \ <span id="contact">contact</span>
 	
 	<div id="portfolioBox"  style="display:none"></div>
 <!--a href="#">information</a><br-->
 	</div>
 </div>
-<div id="flex"><div id="container2" class="click" style="background-image: url(<?php echo $path . $img ?>);"><div id="contactBox" style="display:none"><a href="mailto:pierpaolomorouk@gmail.com">pierpaolomorouk@gmail.com</a></div></div>
+<div id="flex"><div id="container2" class="click" style="background-image: url(<?php echo $path . $img ?>);"><div id="contactBox" style="display:none"><a href="mailto:pierpaolomorouk@gmail.com">pierpaolomorouk@gmail.com</a></div><div id="infoBox" style="display: none"></div></div>
 </div>
 </body>
 </html>
