@@ -70,7 +70,7 @@ $img = getRandomFromArray($imgList);
 	body{
 	font-family: Trade Gothic LT Std Extended!important;
     line-height: 14px;
-    font-size: 14px;
+    font-size: 12px;
 		-webkit-user-select: none;
      -moz-user-select: -moz-none;
       -ms-user-select: none;
@@ -157,6 +157,11 @@ $img = getRandomFromArray($imgList);
 	#menu span:hover, a.list:hover {
 		opacity: 0.5;
 	}
+	@media screen and (max-width: 2560px){
+		#portfolioBox{
+			margin-top:3px;
+		}
+	}
 </style>
 <script>
 	$(document).ready(function(){
@@ -231,7 +236,9 @@ $img = getRandomFromArray($imgList);
 </head>
 
 <body>
-<iframe src="https://open.spotify.com/embed/user/21pizt3vxnh7w5hylsktuaawi/playlist/0tWi3asASL07tAM57JP6jc" width="300" height="80" frameborder="0" allowtransparency="true" id="spotify"></iframe>
+<!--iframe src="https://open.spotify.com/embed/user/21pizt3vxnh7w5hylsktuaawi/playlist/0tWi3asASL07tAM57JP6jc&theme=white&" width="300" height="80" frameborder="0" allowtransparency="true" id="spotify"></iframe-->
+<!--iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3A21pizt3vxnh7w5hylsktuaawi%3APlaylist%3A0tWi3asASL07tAM57JP6jc&theme=white" width="300" height="80" frameborder="0" allowtransparency="true"></iframe-->
+<iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3A21pizt3vxnh7w5hylsktuaawi%3Aplaylist%3A0tWi3asASL07tAM57JP6jc&theme=white" width="300" height="80" frameborder="0" allowtransparency="true"  id="spotify"></iframe>
 <div id="nav">
 
 
