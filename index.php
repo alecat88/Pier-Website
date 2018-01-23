@@ -115,13 +115,33 @@ $img = getRandomFromArray($imgList);
     	width: 70%;
     	height: 70%;
 		background-position: 50%;
-		cursor: pointer;
+
 		/*top: 15%;
 		margin: auto;
 		border: 1px solid black;*/
 	}
+	#container2.white{
+		background-image: none!important;
+	}
+	#container2.click{
+				cursor: pointer;
+	}
+	#contactBox{
+		width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	}
+	.none
 	body{
 		margin: 0px;
+	}
+	#menu span{
+		cursor: pointer;
+	}
+	#menu span:hover, a.list {
+		opacity: 0.5;
 	}
 </style>
 <script>
@@ -143,11 +163,30 @@ $img = getRandomFromArray($imgList);
 	for (var num in img){
 		var x = '<a href="#" class="list" link="images/'+ img[num] +'">'+ pad(parseInt(num)+1)  +'</a><br>'
 		//$(x).append('#categories');
-		$('#categories').append(x);
+		$('#portfolioBox').append(x);
 	}
 	
 	$('.list').on('click',function(){
 		$('#container2').css('background-image','url('+ $(this).attr('link') +')');
+	});
+		
+	//Menu
+	$('#portfolio').on('click',function(){
+		$('#portfolioBox').show();
+		$('#contactBox').hide();
+		$('#container2').removeClass('white');
+		$('#container2').addClass('click');
+	});
+		
+	$('#works').on('click',function(){
+			
+	});
+		
+	$('#contact').on('click',function(){
+		$('#portfolioBox').hide();
+		$('#contactBox').show();
+		$('#container2').addClass('white');
+		$('#container2').removeClass('click');
 	});
 	
 	//------------------------------------------------RESIZE
@@ -174,15 +213,18 @@ $img = getRandomFromArray($imgList);
 <body>
 <iframe src="https://open.spotify.com/embed/user/21pizt3vxnh7w5hylsktuaawi/playlist/0tWi3asASL07tAM57JP6jc" width="300" height="80" frameborder="0" allowtransparency="true" id="spotify"></iframe>
 <div id="nav">
-<!--img src="assets/nome.png"-->
 
-	<div id="categories">
-	<h1>PierPaoloMoro</h1>
-	<a href="mailto:pierpaolomorouk@gmail.com">pierpaolomorouk@gmail.com</a><br>
+
+	<div id="menu">
+	<img src="assets/nome.png"><br>
+	<!--h1>PierPaoloMoro</h1-->
+	<span id="portfolio">portfolio</span> \ <span id="works">works</span> \ <span id="contact">contact</span>
+	
+	<div id="portfolioBox"  style="display:none"></div>
 <!--a href="#">information</a><br-->
 	</div>
 </div>
-<div id="flex"><div id="container2" style="background-image: url(<?php echo $path . $img ?>);"></div>
+<div id="flex"><div id="container2" class="click" style="background-image: url(<?php echo $path . $img ?>);"><div id="contactBox" style="display:none"><a href="mailto:pierpaolomorouk@gmail.com">pierpaolomorouk@gmail.com</a></div></div>
 </div>
 </body>
 </html>
