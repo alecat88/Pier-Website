@@ -133,7 +133,6 @@ $img = getRandomFromArray($imgList);
     align-items: center;
     justify-content: center;
 	}
-	.none
 	body{
 		margin: 0px;
 	}
