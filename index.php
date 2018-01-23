@@ -214,6 +214,15 @@ $img = getRandomFromArray($imgList);
 		$('#container2').removeClass('click');
 	});
 	
+	$('#logo').on('click',function(){
+		$('#portfolioBox').hide();
+		$('#contactBox').hide();
+		$('#infoBox').hide();
+		$('#container2').removeClass('white');
+		$('#container2').addClass('click');
+	});
+		
+	
 	//------------------------------------------------RESIZE
 		var windowWidth = $(window).innerWidth();
      	var windowHeight = $(window).innerHeight();
@@ -243,7 +252,7 @@ $img = getRandomFromArray($imgList);
 
 
 	<div id="menu">
-	<img src="assets/nome.png"><br>
+	<img id="logo" src="assets/nome.png" style="max-width: 27.5em; cursor: pointer"><br>
 	<!--h1>PierPaoloMoro</h1-->
 	<span id="portfolio">portfolio</span> \ <span id="info">info</span> \ <span id="contact">contact</span>
 	
