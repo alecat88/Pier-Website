@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* CSS Document */
+/*@font-face {
+    font-family: Andale Mono, monospace;
+    src: url(AndaleMono.ttf);
+}*/
+@font-face {
+    font-family: Trade Gothic LT Std Extended;
+    
+    src: url("trade gothic/TradeGothicLTStd-BoldExt.otf") format("opentype");
+}
+body{
+	/*font-family: Andale Mono, monospace;*/
+	font-family: Trade Gothic LT Std Extended;
+	line-height: 14px;
+	font-size: 14px;
+	margin-right: 0px;
+	margin-left: 50px;
+    margin-top: 50px;
+}
+#spotify, #img{
+	margin-top: 50px;
+}
+#img{
+	max-height: 100%;
+	max-width: 100%;
+	    
+	float: left;
+	cursor: pointer;
+}
+#hidden{
+	height: 1vh;
+}
+a{
+	color:black;
+	text-decoration: none;
+	
+}
+p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+	    text-transform: uppercase;
+	
+}
+
+ul{
+	    list-style-type: none;
+    -webkit-padding-start: 0px;
+}
+
+#spotify{
+	float:right;
+	
+	    margin-left: 64px;
+}
+#container{
+	height: 100vh;
+	width: 100vw;
+}
