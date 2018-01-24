@@ -33,21 +33,22 @@ function getRandomFromArray($ar) {
 }
 
 //CATEGORIE
-$path2 = 'images/' . $name[0];
-$results = scandir($path2);
+$subs = array();
+$results = scandir($path);
 
 foreach ($results as $result) {
     if ($result === '.' or $result === '..') continue;
 
-    if (is_dir($path2 . '/' . $result)) {
-        //code to use if directory
+    if (is_dir($path . '/' . $result)) {
+      $subs[] = $result;
     }
 }
 
 // Obtain list of images from directory 
 $imgList = getImagesFromDir($root . $path);
-
 $img = getRandomFromArray($imgList);
+
+
 
 
 ?> 
@@ -179,7 +180,7 @@ $img = getRandomFromArray($imgList);
 </style>
 <script>
 	$(document).ready(function(){
-	
+	var subs = JSON.parse('<?php echo JSON_encode($subs);?>');
 	//PHP Array to JS	
 	var img = JSON.parse('<?php echo JSON_encode($imgList);?>');
 
@@ -222,7 +223,7 @@ $img = getRandomFromArray($imgList);
 		
 	});
 		
-	//Make image List
+	//Make image List and Menu
 	function pad(n) {
 		return (n < 10) ? ("0" + n) : n;
 	}
@@ -230,9 +231,20 @@ $img = getRandomFromArray($imgList);
 	for (var num in img){
 		var x = '<a href="#" class="list" number="'+(num) +'" link="images/'+ img[num] +'">'+ pad(parseInt(num)+1)  +'</a><br>'
 		//$(x).append('#categories');
-		$('#portfolioBox').append(x);
+		$('#portfolioNum').append(x);
 	}
 	
+	//Subcategories
+	if (0 < subs.length){
+		for (var sub in subs){
+			var div= '<div class="sub" id="'+subs[sub]+'">'+subs[sub]+'<div class="num"></div></div>';
+			$(div).insertBefore('#portfolioNum');
+		}
+		$('.sub').each(function(){
+			//add numbers;
+		});
+	}
+	//Menu Actiov
 	$('.list').on('click',function(){
 		$('.list').css('text-decoration','none');
 		
@@ -241,16 +253,17 @@ $img = getRandomFromArray($imgList);
 		$(this).css('text-decoration','underline');
 	});
 		
-	//Menu
 	$('#portfolio').on('click',function(){
+		$('#info.active').removeClass('active');
+		$('#contact.active').removeClass('active');
 		if ($(this).hasClass('active')){$('#portfolioBox').hide(); $(this).removeClass('active')}
-		else {$('#portfolioBox').show()};
+		else {$('#portfolioBox').show(); $(this).addClass('active');};
 		$('#contactBox').hide();
 		$('#infoBox').hide();
 		$('#container2').removeClass('white');
 		$('#container2').addClass('click');
-		$('#menu span.active').removeClass('active');
-		$('#portfolio').addClass('active');
+		
+		
 	});
 		
 	$('#info').on('click',function(){
@@ -305,6 +318,7 @@ $img = getRandomFromArray($imgList);
 });
 </script>
 </head>
+
 <body>
 <!--iframe src="https://open.spotify.com/embed/user/21pizt3vxnh7w5hylsktuaawi/playlist/0tWi3asASL07tAM57JP6jc&theme=white&" width="300" height="80" frameborder="0" allowtransparency="true" id="spotify"></iframe-->
 <!--iframe src="https://open.spotify.com/embed?uri=spotify%3Auser%3A21pizt3vxnh7w5hylsktuaawi%3APlaylist%3A0tWi3asASL07tAM57JP6jc&theme=white" width="300" height="80" frameborder="0" allowtransparency="true"></iframe-->
@@ -317,7 +331,9 @@ $img = getRandomFromArray($imgList);
 	<!--h1>PierPaoloMoro</h1-->
 	<span id="portfolio">portfolio</span> \ <span id="info">info</span> \ <span id="contact">contact</span>
 	
-	<div id="portfolioBox"  style="display:none"></div>
+	<div id="portfolioBox"  style="display:none">
+		<div id="portfolioNum"></div>
+	</div>
 <!--a href="#">information</a><br-->
 	</div>
 </div>
@@ -337,8 +353,7 @@ than Reality-->
 2017 Visual Designer at GVC Holding (London).
 </div></div>
 </div>
-<div style="display:none; opacity: 0; width: 0px; height: 0px" id="hidden"></div>
 	
 </body>
-
+<div style="display:none; opacity: 0; width: 0px; height: 0px" id="hidden"></div>
 </html>
