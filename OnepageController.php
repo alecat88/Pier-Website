@@ -26,11 +26,19 @@ class Lalatteria_Postcode_OnepageController extends Mage_Checkout_OnepageControl
 
 				$customerAddressId = $this->getRequest()->getPost('billing_address_id', false);
 
+        if (!empty($customerAddressId)) {
+            $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
+            if ($customerAddress->getId()) {
+
+              $data['postcode'] = $customerAddress->getPostcode();
+            }
+        }
+
 				if (isset($data['email'])) {
 					$data['email'] = trim($data['email']);
 				}
 				if (isset($data['postcode'])) {
-					$data['postcode'] = $data['postcode'];
+					$data['postcode'] = trim($data['postcode']);
 				}
 				$dest_zip	= $data['postcode'];
 				if ((substr($dest_zip, 0, 1) === '_') || (preg_match('/^[a-z]+__[a-z]+$/i', $dest_zip))) 
@@ -45,7 +53,7 @@ class Lalatteria_Postcode_OnepageController extends Mage_Checkout_OnepageControl
 					}
 					if(!isset($getPostcode)){
 						$result['error']	=	true;
-						$result['message']	=	'Provided Zip/Postal Code seems to be invalid. Example: AB12 3CD; A1B 2CD; AB1 2CD; AB1C 2DF; A12 3BC; A1 2BC.';
+						$result['message']	=	'Provided Zip/Postal Code seems to be invalid. Example: AB12 3CD; A1B 2CD; AB1 2CD; AB1C 2DF; A12 3BC; A1 2BC.'; // . ' :: ' . $dest_zip;
 					}
 					else{
 					
@@ -65,7 +73,7 @@ class Lalatteria_Postcode_OnepageController extends Mage_Checkout_OnepageControl
 						$data2[] = $row["dest_zip"];
 					}
 					
-					if(count($data2) >= 1){
+					if(!$useForShipping || count($data2) >= 1){
 						$result = $this->getOnepage()->saveBilling($data, $customerAddressId);
 						if (!isset($result['error'])) {
 							if ($this->getOnepage()->getQuote()->isVirtual()) {
@@ -96,10 +104,13 @@ class Lalatteria_Postcode_OnepageController extends Mage_Checkout_OnepageControl
                                                 //APPNOVA
                                                 //Disabled: (Still saving but going to shipping)
                                                 $_POST['billing[use_for_shipping]'] = '0';
-                                                //$result = $this->getOnepage()->saveBilling($data, $customerAddressId);
-						$result['error']	=	true;
-						$result['message']	=	"We do not ship to your post code, please select a different shipping address.";
                                                 $data['use_for_shipping'] = '0';
+                                                $result = $this->getOnepage()->saveBilling($data, $customerAddressId);
+
+                                                if($useForShipping && 0 == count($data2)) {
+						  $result['error']	=	true;
+						  $result['message']	=	"We do not ship to your post code, please select a different shipping address..." . substr($dest_zip, 0, 10);
+						}
                                                 //$result['goto_section'] = 'shipping';
                                                 $result['duplicateBillingInfo'] = 'false';
                                                  
@@ -130,12 +141,22 @@ class Lalatteria_Postcode_OnepageController extends Mage_Checkout_OnepageControl
         }
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost('shipping', array());
-			if (isset($data['postcode'])) {
-				$data['postcode'] = $data['postcode'];
-			}
-			$dest_zip	= $data['postcode'];
 				
 			$customerAddressId = $this->getRequest()->getPost('shipping_address_id', false);
+
+        if (!empty($customerAddressId)) {
+            $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
+            if ($customerAddress->getId()) {
+
+              $data['postcode'] = $customerAddress->getPostcode();
+            }
+        }
+
+			if (isset($data['postcode'])) {
+				$data['postcode'] = trim($data['postcode']);
+			}
+			$dest_zip	= $data['postcode'];
+
 			if ((substr($dest_zip, 0, 1) === '_') || (preg_match('/^[a-z]+__[a-z]+$/i', $dest_zip))) 
 				{
 					$result['error']	=	true;
